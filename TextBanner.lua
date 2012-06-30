@@ -151,4 +151,5 @@ function TextBanner:drawLines(v)
     noSmooth()
     strokeWidth(1)
     stroke(143, 143, 143, 255)
-    line
+    lineCapMode(PROJECT)
+    for i=1, 
