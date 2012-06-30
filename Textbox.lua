@@ -218,3 +218,4 @@ function Textbox:draw()
     end
 
     -- draw the cursor
+    if math.floor(E
