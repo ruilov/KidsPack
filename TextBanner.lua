@@ -148,4 +148,7 @@ function TextBanner:createVerts()
 end
 
 function TextBanner:drawLines(v)
-    noSmooth(
+    noSmooth()
+    strokeWidth(1)
+    stroke(143, 143, 143, 255)
+    line
