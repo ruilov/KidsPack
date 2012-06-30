@@ -213,3 +213,8 @@ function Textbox:draw()
     text(displayText,self.textCoords.x,self.textCoords.y)
 
     if not self.selected then
+        popStyle()
+        return nil
+    end
+
+  
