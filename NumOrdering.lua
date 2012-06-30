@@ -15,4 +15,5 @@ function NumOrdering:makeButtons()
     local marginX,marginY = 20,20
     local w = (WIDTH - (self.nx+1)*marginX)/self.nx
     local h = (HEIGHT - topMargin - (self.ny+1)*marginY)/self.ny
-    for i = 
+    for i = 1,#puzzle do
+        loca
