@@ -190,4 +190,26 @@ function Textbox:calcCoords()
     self.cursorCoords = {
         x1 = textX + len,
         y1 = cursorY + self.cursorMarginY,
+        x2 = textX + len,
+        y2 = cursorY + cursorH - 2 * self.cursorMarginY
+    }
+    popStyle()
+end
+
+function Textbox:draw()
+    pushStyle()
+    noSmooth()
     
+    -- draw the bounding box
+    rectMode(CORNER)
+    strokeWidth(2)
+    stroke(self.background)
+    noFill()
+    rect(self.x,self.y,self.w,self.h)
+    
+    -- draw the text
+    self:applyTextProperties()
+    local displayText = self:displayText()
+    text(displayText,self.textCoords.x,self.textCoords.y)
+
+    if not self.selected then
