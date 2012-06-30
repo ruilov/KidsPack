@@ -152,4 +152,5 @@ function TextBanner:drawLines(v)
     strokeWidth(1)
     stroke(143, 143, 143, 255)
     lineCapMode(PROJECT)
-    for i=1, 
+    for i=1, #v do
+        local 
