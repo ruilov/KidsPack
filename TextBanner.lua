@@ -119,4 +119,19 @@ function TextBanner:createVerts()
         v[7] = vec2(6*r,h)
         
         v[8] = vec2(w-6*r,h)
- 
+        v[9] = vec2(w-4*r,h-r)
+        v[10] = vec2(w-2*r,h-2*r)
+        v[11] = vec2(w-r,h-4*r)
+        v[12] = vec2(w,h-6*r)
+    elseif self.type == "back" then
+        v[1] = vec2(w,0)
+        v[2] = vec2(14,0)
+        v[3] = vec2(0,math.floor(h/2))
+        v[4] = vec2(14,h)
+        v[5] = vec2(w,h)
+    elseif self.type == "arrowRight" then
+        v[1] = vec2(0,0)
+        v[2] = vec2(w,math.floor(h/2))
+        v[3] = vec2(0,h)
+    elseif self.type == "arrowLeft" then
+        v[1] = vec2(w,0)
