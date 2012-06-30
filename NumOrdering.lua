@@ -14,4 +14,5 @@ function NumOrdering:makeButtons()
     local topMargin = 200
     local marginX,marginY = 20,20
     local w = (WIDTH - (self.nx+1)*marginX)/self.nx
-    local h = (HEIGHT - top
+    local h = (HEIGHT - topMargin - (self.ny+1)*marginY)/self.ny
+    for i = 
