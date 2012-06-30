@@ -18,4 +18,21 @@ function TextBanner:init(text,x,y,w,h,args)
     local tx = w/2
     local ty = h/2
     
-    if self.type == "back" t
+    if self.type == "back" then 
+        tx = tx + 3 
+        ty = ty + 2
+    end
+
+    self.textElem = TextElem(text,tx,ty,args.text)
+
+    self.topColor = args.topColor or color(255, 255, 255, 255) 
+    self.bottomColor = args.bottomColor or color(255,255,255,255)
+
+    self.myMesh = mesh()
+    self.vertColors = {}
+    self:moveCB()
+end
+
+function TextBanner:moveCB()
+    self.verts = self:createVerts()
+    self.myMesh.vertices = triangulat
