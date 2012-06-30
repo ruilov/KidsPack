@@ -133,4 +133,61 @@ function Textbox:calcCoords()
     local textW,textH = textSize(displayText)
     if textH == 0 then textH = singleH end -- for when displayText is empty
     
-    local textX = self.x + (self.w - textW)/2 -- default alignment 
+    local textX = self.x + (self.w - textW)/2 -- default alignment is CENTER
+    if self.align == "LEFT" then textX = self.x end
+    local textY = self.y
+    -- when protected we'll be showing *, but let's show in the middle of the line
+    if self.protected then textY = textY - self.h*.2 end
+    -- for multie text we show from the top
+    if self.multiText then textY = self.y + self.h - textH end
+    
+    self.textCoords = {x=textX,y=textY}
+
+    ------------
+    --- THE CURSOR
+    -------------
+    local prefix = displayText:sub(1,self.cursorPos)
+    
+    if self.multiText then    -- prefix should only be the last line
+        -- but we can't just look for new lines, because sometimes the text wraps just
+        -- because it's long
+        
+        -- again we need to add a blank space in case the cursor is just after a
+        -- new line
+        local prefix2 = prefix
+        if prefix2:len() > 0 and prefix2:sub(prefix2:len(),prefix2:len())=="\n" then
+            prefix2 = prefix2 .. " "
+        end
+        local totalH = select(2,textSize(prefix2))
+        
+        local lastLin = ""
+        for i = prefix:len(),1,-1 do
+            local thisH = select(2,textSize(prefix:sub(1,i)))
+            if thisH < totalH then 
+                -- now we have to go backwards until we find a space, because
+                -- the whole last word will be in the new line
+                for j = i,1,-1 do
+                    local ch = prefix:sub(j,j)
+                    if ch == " " or ch == "\n" then break end
+                    lastLin = ch..lastLin
+                end
+                break 
+            end
+            lastLin = prefix:sub(i,i) .. lastLin
+        end
+        prefix = lastLin
+        --print("textbox.calc = ",lastLin)
+    end
+        
+    local len = textSize(prefix)
+    local cursorH = self.h
+    local cursorY = self.y
+    if self.multiText then 
+        cursorH = singleH
+        cursorY = self.y + self.h - textH
+    end
+    
+    self.cursorCoords = {
+        x1 = textX + len,
+        y1 = cursorY + self.cursorMarginY,
+    
