@@ -153,4 +153,4 @@ function TextBanner:drawLines(v)
     stroke(143, 143, 143, 255)
     lineCapMode(PROJECT)
     for i=1, #v do
-        local 
+        local nextI
