@@ -11,4 +11,11 @@ function TextBanner:init(text,x,y,w,h,args)
     args = args or {}
     args.text = args.text or {}
     args.text.textMode = args.text.textMode or CENTER
-    args.text.fill = args.te
+    args.text.fill = args.text.fill or color(0,0,0,255)
+    args.text.fontSize = args.text.fontSize or 28
+
+    self.type = args.type or "round"
+    local tx = w/2
+    local ty = h/2
+    
+    if self.type == "back" 
