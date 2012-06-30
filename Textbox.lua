@@ -218,4 +218,4 @@ function Textbox:draw()
     end
 
     -- draw the cursor
-    if math.floor(E
+    if math.floor(ElapsedTime*4)
