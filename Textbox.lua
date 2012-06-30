@@ -218,4 +218,61 @@ function Textbox:draw()
     end
 
     -- draw the cursor
-    if math.floor(ElapsedTime*4)
+    if math.floor(ElapsedTime*4)%2 == 0 then
+        stroke(self.cursorColor)
+        strokeWidth(self.cursorWidth) 
+        local c = self.cursorCoords       
+        line(c.x1,c.y1,c.x2,c.y2)
+    end
+
+     popStyle()
+end
+
+function Textbox:touched(t)
+    local didTouch = Button.touched(self,t)
+    if not didTouch and self.selected then self:unselect() end
+    return didTouch
+end
+
+-- when the text box is active, the keyboard shows up (and coursor and other elements too)
+function Textbox:select()
+    self.selected = true
+    -- move the cursor to the end
+    self.cursorPos = self:displayText():len()
+    GLOBAL_SHOWKEYBOARD = true
+end
+
+function Textbox:unselect()
+    self.selected = false
+    hideKeyboard()
+end
+
+function Textbox:onEnded(touch)
+    if not self.selected then self:select() end
+end
+
+-- moves the cursor to the x coordinate of the touch
+function Textbox:onTouched(touch)
+    if not self.selected then return nil end
+    
+    self.cursorPos = 0
+
+    pushStyle()
+    self:applyTextProperties()
+    local displayText,startPos = self:displayText()
+    if startPos ~= nil then self.cursorPos = startPos end
+    
+    local textW = textSize(displayText)
+    local textX = self.x + (self.w - textW)/2
+    if self.align == "LEFT" then textX = self.x end
+    local touchX = touch.x - textX
+    
+    for idx = 1,displayText:len() do
+        local len = textSize(displayText:sub(1,idx))
+        if len > touchX then break end
+        self.cursorPos = self.cursorPos + 1
+    end
+    popStyle()
+    
+    self:calcCoords()
+end

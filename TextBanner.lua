@@ -153,4 +153,19 @@ function TextBanner:drawLines(v)
     stroke(143, 143, 143, 255)
     lineCapMode(PROJECT)
     for i=1, #v do
-        local nextI = i
+        local nextI = i%(#v)+1
+        line(v[i].x,v[i].y,v[nextI].x,v[nextI].y)
+    end
+end
+
+function TextBanner:recolor()
+    --print(#self.myMesh.vertices,3 * #self.verts - 6)
+    for i=1,#self.myMesh.vertices do
+        if self.myMesh.vertices[i].y > self.h/2 then
+            self.vertColors[i] = self.topColor
+        else
+            self.vertColors[i] = self.bottomColor
+        end
+    end
+    self.myMesh.colors = self.vertColors
+end

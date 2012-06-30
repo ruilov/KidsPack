@@ -16,4 +16,37 @@ function NumOrdering:makeButtons()
     local w = (WIDTH - (self.nx+1)*marginX)/self.nx
     local h = (HEIGHT - topMargin - (self.ny+1)*marginY)/self.ny
     for i = 1,#puzzle do
-        local x = (i-1)
+        local x = (i-1)%self.nx
+        x = (x+1) * marginX + x * w
+        
+        local y = math.floor((i-1)/self.nx)
+        y = (y+1) * marginY + y * h
+        
+        local button = TextButton(puzzle[i].."",x,y,w,h,{type="round"})
+        button.setUnpressed = function(b) end
+        button.onEnded = function(b,t)
+            b.active = false
+        end
+        self:add(button)
+    end
+end
+
+function NumOrdering:tick()
+    self.time = self.time + DeltaTime
+    self.title.text = self.time .. ""
+end
+
+-- makes a random array of the integers from 1 to n
+function NumOrdering.makePuzzle(n)
+    -- unused are the integers that we haven't used yet
+    local unused = {}
+    for i = 1,n do table.insert(unused,i) end
+    
+    local ans = {}
+    for i = 1,n do
+        local idx = math.random(#unused)
+        table.insert(ans,unused[idx])
+        table.remove(unused,idx)
+    end
+    return ans
+end
