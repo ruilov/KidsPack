@@ -11,6 +11,7 @@
 		<string>Button</string>
 		<string>Table</string>
 		<string>Panel</string>
+		<string>Plot</string>
 		<string>TextElem</string>
 		<string>TextBanner</string>
 		<string>TextButton</string>
