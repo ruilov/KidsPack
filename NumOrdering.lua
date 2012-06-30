@@ -12,4 +12,6 @@ end
 function NumOrdering:makeButtons() 
     local puzzle = NumOrdering.makePuzzle(self.nx*self.ny)    
     local topMargin = 200
-    local mar
+    local marginX,marginY = 20,20
+    local w = (WIDTH - (self.nx+1)*marginX)/self.nx
+    local h = (HEIGHT - top
