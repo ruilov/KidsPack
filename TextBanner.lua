@@ -18,4 +18,4 @@ function TextBanner:init(text,x,y,w,h,args)
     local tx = w/2
     local ty = h/2
     
-    if self.type == "back" 
+    if self.type == "back" t
